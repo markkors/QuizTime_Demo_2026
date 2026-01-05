@@ -1,0 +1,12 @@
+# Zet URL rewriting aan
+RewriteEngine On
+
+# Zet de basisdirectory (pas aan als je site in een submap draait, bv. /project/)
+RewriteBase /
+
+# Als het gevraagde bestand of directory niet bestaat...
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# ...stuur dan alles door naar index.php
+RewriteRule ^ index.php [QSA,L]

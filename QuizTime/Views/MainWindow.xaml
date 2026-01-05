@@ -1,0 +1,59 @@
+﻿<Window x:Class="QuizTime.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuizTime"
+        xmlns:converters="clr-namespace:QuizTime.ValueConverters"
+        mc:Ignorable="d"
+        Title="{Binding SuperTitel}"
+        Height="450"
+        Width="800"
+        DataContext="{StaticResource MainViewModel}">
+    <Window.Resources>
+        <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="0"
+                   Grid.Row="0"
+                   Text="{Binding Title}"
+                   FontSize="24"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center" />
+
+        <TextBlock Grid.Row="1"
+                   Grid.Column="0"
+                   Text="{Binding Questions.Count}"
+                   FontSize="24"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center" />
+
+       
+
+        <StackPanel  Grid.Column="1" Grid.Row="1" Background="{Binding IsAnswerCorrect, Converter={StaticResource BoolToColorConverter}}">
+            <ComboBox ItemsSource="{Binding Questions}"
+                      SelectedItem="{Binding CurrentQuestion}"
+                      DisplayMemberPath="Question"
+            />
+            <ListView ItemsSource="{Binding CurrentQuestion.Options}"
+                      SelectedItem="{Binding SelectedOption}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+        
+    </Grid>
+</Window>
