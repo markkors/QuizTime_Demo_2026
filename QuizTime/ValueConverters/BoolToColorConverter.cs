@@ -16,6 +16,7 @@ namespace QuizTime.ValueConverters
             {
                 return isCorrect ? Brushes.Green : Brushes.Red;
             }
+            // Null of andere waarden => Grijs (standaard)
             return Brushes.Gray;
         }
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

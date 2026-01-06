@@ -20,7 +20,7 @@ namespace QuizTime.ViewModels
         private List<oQuestion> _questions;
         private oQuestion _currentQuestion;
         private string _selectedOption;
-        private bool _isAnswerCorrect;
+        private bool? _isAnswerCorrect;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -99,6 +99,8 @@ namespace QuizTime.ViewModels
             {
                 _currentQuestion = value;
                 OnPropertyChanged(nameof(CurrentQuestion));
+                // Reset de kleur naar grijs bij een nieuwe vraag
+                IsAnswerCorrect = null;
             }
         }
 
@@ -138,7 +140,7 @@ namespace QuizTime.ViewModels
         }
 
         
-        public bool IsAnswerCorrect
+        public bool? IsAnswerCorrect
         {
             get => _isAnswerCorrect;
             set

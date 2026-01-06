@@ -170,7 +170,8 @@ public oQuestion CurrentQuestion { get; set; }
 public string SelectedOption { get; set; }
 
 // Of het antwoord correct is (voor visuele feedback)
-public bool IsAnswerCorrect { get; set; }
+// Nullable bool: null = nog geen antwoord, true = correct, false = fout
+public bool? IsAnswerCorrect { get; set; }
 ```
 
 **API Communicatie:**
@@ -332,9 +333,11 @@ public class BoolToColorConverter : IValueConverter
 ```
 
 **Hoe werkt het?**
-- `IsAnswerCorrect = true` → Groene achtergrond
-- `IsAnswerCorrect = false` → Rode achtergrond
-- Anders → Grijze achtergrond
+- `IsAnswerCorrect = true` → Groene achtergrond (correct antwoord)
+- `IsAnswerCorrect = false` → Rode achtergrond (fout antwoord)
+- `IsAnswerCorrect = null` → Grijze achtergrond (nog geen antwoord gegeven)
+
+**Belangrijk:** `IsAnswerCorrect` is een nullable bool (`bool?`), wat betekent dat het drie mogelijke toestanden heeft. Dit zorgt ervoor dat de achtergrond standaard grijs is en pas rood of groen wordt na het geven van een antwoord.
 
 **Gebruik in XAML:**
 
